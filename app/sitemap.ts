@@ -1,3 +1,7 @@
 import type { MetadataRoute } from "next";
 import { categories, products } from "@/lib/data";
+
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap { const base = process.env.NEXT_PUBLIC_SITE_URL||(process.env.VERCEL_PROJECT_PRODUCTION_URL?`https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`:"http://localhost:3000"); const paths = ["", "/shop", "/about", "/delivery", ...categories.map((item) => `/category/${item.slug}`), ...products.map((item) => `/product/${item.slug}`)]; return paths.map((path) => ({ url: `${base}${path}`, lastModified: new Date(), changeFrequency: path ? "weekly" : "daily" })); }
+
