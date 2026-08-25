@@ -5,9 +5,11 @@ import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { assetPath } from "@/lib/assets";
+
 const slides = [
   {
-    image: "/images/dhali-hero-branded.png",
+    image: assetPath("/images/dhali-hero-branded.png"),
     alt: "A golden retriever and tabby cat with DHALI branded pet food packs",
     eyebrow: "Gulshan-2, Dhaka",
     title: "Better food for the pets you love.",
@@ -16,7 +18,7 @@ const slides = [
     dark: false,
   },
   {
-    image: "/images/dhali-shop-exterior-v2.png",
+    image: assetPath("/images/dhali-shop-exterior-v2.png"),
     alt: "The entrance of DHALI's Unique Collection pet shop in Gulshan-2",
     eyebrow: "Visit the shop",
     title: "A real pet shop in the heart of Gulshan.",
@@ -25,7 +27,7 @@ const slides = [
     dark: true,
   },
   {
-    image: "/images/dhali-shop-interior-v2.png",
+    image: assetPath("/images/dhali-shop-interior-v2.png"),
     alt: "Shelves of pet food and accessories inside DHALI's Unique Collection",
     eyebrow: "Stocked for cats and dogs",
     title: "Everything they need, under one roof.",

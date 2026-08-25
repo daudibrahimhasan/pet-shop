@@ -4,6 +4,7 @@ import { ArrowRight, BadgeCheck, MapPin, PhoneCall, Truck } from "lucide-react";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { ProductCard } from "@/components/product-card";
 import { getProducts } from "@/lib/catalog";
+import { assetPath } from "@/lib/assets";
 
 export default async function HomePage() {
   const products = await getProducts();
@@ -35,7 +36,7 @@ export default async function HomePage() {
         </div>
         <div className="grid gap-3 md:gap-4 lg:grid-cols-2">
           <Link href="/category/cat-food" className="group relative min-h-[280px] overflow-hidden bg-cocoa text-white md:min-h-[360px]">
-            <Image src="/images/cat-collection.png" alt="A tabby cat beside a bowl and cat food" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"/>
+            <Image src={assetPath("/images/cat-collection.png")} alt="A tabby cat beside a bowl and cat food" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"/>
             <div className="absolute inset-0 bg-gradient-to-r from-cocoa via-cocoa/45 to-transparent"/>
             <div className="absolute inset-0 flex max-w-[280px] flex-col justify-end p-5 md:p-7">
               <span className="text-sm font-bold text-turmeric">For cats</span>
@@ -44,7 +45,7 @@ export default async function HomePage() {
             </div>
           </Link>
           <Link href="/category/dog-food" className="group relative min-h-[280px] overflow-hidden bg-cocoa text-white md:min-h-[360px]">
-            <Image src="/images/dog-collection.png" alt="A golden retriever beside dog food and a bowl" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"/>
+            <Image src={assetPath("/images/dog-collection.png")} alt="A golden retriever beside dog food and a bowl" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"/>
             <div className="absolute inset-0 bg-gradient-to-l from-cocoa via-cocoa/40 to-transparent"/>
             <div className="absolute inset-0 ml-auto flex max-w-[280px] flex-col items-start justify-end p-5 md:p-7">
               <span className="text-sm font-bold text-turmeric">For dogs</span>

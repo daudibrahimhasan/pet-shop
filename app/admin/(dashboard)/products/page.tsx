@@ -5,6 +5,7 @@ import { RemoveProductButton } from "@/components/admin/remove-product-button";
 import { getAdmin } from "@/lib/admin";
 import { getProducts } from "@/lib/catalog";
 import { categories as fallbackCategories } from "@/lib/data";
+import { assetPath } from "@/lib/assets";
 
 type AdminProduct = {
   id: string;
@@ -74,7 +75,7 @@ export default async function AdminProductsPage() {
                 <tr key={product.id} className="border-b border-clay/70">
                   <td className="py-4">
                     <div className="flex items-center gap-3">
-                      {product.imageUrl ? <Image src={product.imageUrl} alt="" width={52} height={52} className="h-13 w-13 rounded-lg object-contain" /> : <div className="h-13 w-13 rounded-lg bg-mist" />}
+                      {product.imageUrl ? <Image src={assetPath(product.imageUrl)} alt="" width={52} height={52} className="h-13 w-13 rounded-lg object-contain" /> : <div className="h-13 w-13 rounded-lg bg-mist" />}
                       <div><strong>{product.name}</strong><span className="block text-xs text-muted">{product.weight}</span></div>
                     </div>
                   </td>

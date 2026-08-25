@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { LockKeyhole } from "lucide-react";
 import { loginAdmin } from "@/app/admin/actions";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { assetPath } from "@/lib/assets";
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -44,7 +45,7 @@ export default function AdminLoginPage() {
     <main className="grid min-h-screen place-items-center bg-cocoa p-5">
       <Link href="/" className="absolute left-5 top-5 text-sm font-bold text-white/70 hover:text-white">Back to shop</Link>
       <div className="w-full max-w-md rounded-2xl bg-[#fffdf8] p-7 shadow-2xl">
-        <Image src="/brand/dhali-logo.png" alt="DHALI's Unique Collection" width={180} height={90} className="h-20 w-auto mix-blend-multiply" priority />
+        <Image src={assetPath("/brand/dhali-logo.png")} alt="DHALI's Unique Collection" width={180} height={90} className="h-20 w-auto mix-blend-multiply" priority />
         <div className="mt-6 flex items-center gap-3">
           <LockKeyhole className="text-papaya" />
           <h1 className="font-display text-3xl font-bold">Admin sign in</h1>

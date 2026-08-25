@@ -7,6 +7,8 @@ import { Menu, Phone, Search, ShoppingBag, UserRound, X } from "lucide-react";
 import { FormEvent, useEffect, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 
+import { assetPath } from "@/lib/assets";
+
 const navigation = [
   { href: "/shop", label: "Shop all" },
   { href: "/category/cat-food", label: "Cats" },
@@ -44,7 +46,7 @@ export function Header() {
       <header className="sticky top-0 z-40 border-b border-line bg-white">
         <div className="container-page flex min-h-[74px] items-center gap-5">
           <Link href="/" className="flex shrink-0 items-center gap-2.5" aria-label="DHALI's Unique Collection home">
-            <Image src="/brand/dhali-logo.png" alt="" width={48} height={48} className="h-11 w-11 rounded-full object-cover mix-blend-multiply" priority />
+            <Image src={assetPath("/brand/dhali-logo.png")} alt="" width={48} height={48} className="h-11 w-11 rounded-full object-cover mix-blend-multiply" priority />
             <span className="leading-none">
               <strong className="font-display block text-[17px] tracking-[-.03em]">DHALI&apos;S</strong>
               <span className="mt-1 block text-[9px] font-bold tracking-[.13em] text-muted">UNIQUE COLLECTION</span>
