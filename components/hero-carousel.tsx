@@ -2,37 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight, MapPin } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, PhoneCall, Sparkles, Tag, Truck } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-
 import { assetPath } from "@/lib/assets";
 
 const slides = [
   {
     image: assetPath("/images/dhali-hero-branded.png"),
-    alt: "A golden retriever and tabby cat with DHALI branded pet food packs",
-    eyebrow: "Gulshan-2, Dhaka",
-    title: "Better food for the pets you love.",
-    description: "Cat food, dog food, treats and daily essentials from a real neighborhood shop. Order online and pay when it arrives.",
-    position: "object-[64%_center] md:object-center",
+    alt: "Happy pets with premium pet food packages",
+    badge: "100% Cash on Delivery in Dhaka",
+    badgeIcon: "truck",
+    title: "Fresh & Nutritious Food for the Pets You Love.",
+    description: "Premium dry kibble, delicious creamy treats, clumping litter and daily accessories from Gulshan-2's trusted neighborhood pet shop.",
+    cta: "Shop The Pantry",
+    href: "/shop",
+    bgTint: "from-[#DEF9EC]/90 via-[#F2FCE4]/80 to-transparent",
     dark: false,
   },
   {
-    image: assetPath("/images/dhali-shop-exterior-v2.png"),
-    alt: "The entrance of DHALI's Unique Collection pet shop in Gulshan-2",
-    eyebrow: "Visit the shop",
-    title: "A real pet shop in the heart of Gulshan.",
-    description: "Find us at G-1,2,3, D.N.C.C Market, Gulshan-2, Dhaka-1212.",
-    position: "object-center",
+    image: assetPath("/images/dhali-shop-interior-v2.png"),
+    alt: "Shelves packed with pet food and care essentials",
+    badge: "Gulshan-2 Storefront",
+    badgeIcon: "sparkles",
+    title: "Everything Your Cat & Dog Needs Under One Roof.",
+    description: "Reflex, SmartHeart, Drools, Nekko, Wanpy, Me-O and top international pet nutrition brands in stock with fast doorstep delivery.",
+    cta: "Explore Categories",
+    href: "/shop",
+    bgTint: "from-[#253D4E]/95 via-[#253D4E]/75 to-transparent",
     dark: true,
   },
   {
-    image: assetPath("/images/dhali-shop-interior-v2.png"),
-    alt: "Shelves of pet food and accessories inside DHALI's Unique Collection",
-    eyebrow: "Stocked for cats and dogs",
-    title: "Everything they need, under one roof.",
-    description: "Food, treats, litter and everyday accessories, carefully arranged and easy to shop.",
-    position: "object-center",
+    image: assetPath("/images/dhali-shop-exterior-v2.png"),
+    alt: "D.N.C.C Market Gulshan-2 storefront",
+    badge: "Visit Or Order Online",
+    badgeIcon: "tag",
+    title: "Visit Our Shop at D.N.C.C Market, Gulshan-2.",
+    description: "Open 7 days a week. Order online in 30 seconds or drop by our storefront for genuine pet care products at best market prices.",
+    cta: "Order with COD",
+    href: "/shop",
+    bgTint: "from-[#253D4E]/95 via-[#253D4E]/75 to-transparent",
     dark: true,
   },
 ] as const;
@@ -44,53 +52,186 @@ export function HeroCarousel() {
   const show = (index: number) => setActive((index + slides.length) % slides.length);
 
   useEffect(() => {
-    const timer = window.setTimeout(() => show(active + 1), 5500);
+    const timer = window.setTimeout(() => show(active + 1), 6000);
     return () => window.clearTimeout(timer);
   }, [active]);
 
   return (
-    <section
-      className="container-page relative mt-4 overflow-hidden bg-surface shadow-[0_18px_50px_rgba(43,23,20,.08)] touch-pan-y select-none"
-      aria-roledescription="carousel"
-      aria-label="DHALI shop highlights"
-      onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null; }}
-      onTouchEnd={(event) => {
-        if (touchStart.current === null) return;
-        const distance = event.changedTouches[0].clientX - touchStart.current;
-        if (Math.abs(distance) > 50) show(active + (distance < 0 ? 1 : -1));
-        touchStart.current = null;
-      }}
-    >
-      <div className="relative h-[560px] sm:h-[580px] md:h-[590px]">
-        {slides.map((item, index) => (
-          <div key={item.image} className={`hero-slide-layer absolute inset-0 ${active === index ? "opacity-100" : "pointer-events-none opacity-0"}`} aria-hidden={active !== index}>
-            <Image src={item.image} alt={active === index ? item.alt : ""} fill priority={index === 0} sizes="(max-width: 768px) 100vw, 1240px" className={`object-cover ${item.position}`} />
-            <div className={`absolute inset-0 ${item.dark ? "bg-cocoa/80 md:bg-transparent md:bg-gradient-to-r md:from-cocoa/95 md:via-cocoa/55 md:to-transparent" : "bg-[#fffdf7]/80 md:bg-transparent md:bg-gradient-to-r md:from-[#fffdf7] md:via-[#fffdf7]/66 md:to-[#fffdf7]/5"}`} />
+    <div className="container-page mt-4">
+      <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+        {/* Main Hero Slider */}
+        <section
+          className="relative min-h-[440px] sm:min-h-[480px] md:min-h-[500px] overflow-hidden rounded-2xl sm:rounded-3xl border border-primary-border bg-white shadow-card touch-pan-y select-none"
+          aria-roledescription="carousel"
+          aria-label="Pet Shop featured promotions"
+          onTouchStart={(e) => {
+            touchStart.current = e.touches[0]?.clientX ?? null;
+          }}
+          onTouchEnd={(e) => {
+            if (touchStart.current === null) return;
+            const dist = e.changedTouches[0].clientX - touchStart.current;
+            if (Math.abs(dist) > 50) show(active + (dist < 0 ? 1 : -1));
+            touchStart.current = null;
+          }}
+        >
+          {/* Background Slides */}
+          {slides.map((item, index) => (
+            <div
+              key={item.image}
+              className={`hero-slide-layer absolute inset-0 ${
+                active === index ? "opacity-100" : "pointer-events-none opacity-0"
+              }`}
+              aria-hidden={active !== index}
+            >
+              <Image
+                src={item.image}
+                alt={active === index ? item.alt : ""}
+                fill
+                priority={index === 0}
+                sizes="(max-width: 1024px) 100vw, 900px"
+                className="object-cover object-right md:object-center"
+              />
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${item.bgTint} md:w-4/5`}
+              />
+            </div>
+          ))}
+
+          {/* Slide Text Content */}
+          <div
+            key={slide.image}
+            className={`hero-copy-enter relative z-10 flex h-full max-w-[580px] flex-col justify-center p-6 sm:p-10 md:p-14 ${
+              slide.dark ? "text-white" : "text-heading"
+            }`}
+          >
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1 text-xs font-bold text-primary shadow-sm backdrop-blur-sm self-start">
+              {slide.badgeIcon === "truck" && <Truck size={14} />}
+              {slide.badgeIcon === "sparkles" && <Sparkles size={14} className="text-amber" />}
+              {slide.badgeIcon === "tag" && <Tag size={14} className="text-coral" />}
+              <span>{slide.badge}</span>
+            </div>
+
+            {/* Title */}
+            <h1 className="mt-4 text-2xl font-extrabold leading-[1.15] sm:text-3xl md:text-5xl">
+              {slide.title}
+            </h1>
+
+            {/* Description */}
+            <p
+              className={`mt-3 text-xs leading-relaxed sm:text-sm md:text-base ${
+                slide.dark ? "text-gray-200" : "text-text-body"
+              }`}
+            >
+              {slide.description}
+            </p>
+
+            {/* CTA Action Buttons */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link
+                href={slide.href}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-extrabold text-white shadow-md transition-all hover:bg-primary-hover hover:gap-3 active:scale-95"
+              >
+                <span>{slide.cta}</span>
+                <ArrowRight size={16} />
+              </Link>
+              <a
+                href="tel:+8801618500629"
+                className={`inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm font-bold backdrop-blur-sm transition-all ${
+                  slide.dark
+                    ? "border-white/30 bg-white/10 text-white hover:bg-white/20"
+                    : "border-primary/30 bg-white/80 text-heading hover:bg-white"
+                }`}
+              >
+                <PhoneCall size={15} className="text-primary" />
+                <span>01618-500629</span>
+              </a>
+            </div>
           </div>
-        ))}
-        <div key={slide.image} className={`hero-copy-enter relative z-10 flex h-full max-w-[650px] flex-col justify-start px-5 pb-24 pt-12 md:justify-center md:px-16 md:pb-20 md:pt-16 ${slide.dark ? "text-white" : "text-cocoa"}`}>
-          <p className={`flex items-center gap-2 text-sm font-black ${slide.dark ? "text-amber" : "text-sage"}`}><MapPin size={18}/>{slide.eyebrow}</p>
-          <h1 className="display mt-4 max-w-[11ch] text-[2.35rem] font-extrabold leading-[.95] sm:text-[2.7rem] md:text-[clamp(2.7rem,6.4vw,5.8rem)] md:leading-[.92]">{slide.title}</h1>
-          <p className={`mt-4 line-clamp-3 max-w-[47ch] text-sm leading-6 md:mt-6 md:line-clamp-none md:text-lg md:leading-7 ${slide.dark ? "text-white/85" : "text-muted"}`}>{slide.description}</p>
-          <div className="mt-6 flex flex-col items-stretch gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4 md:mt-8">
-            <Link href="/shop" className="group inline-flex min-h-12 items-center justify-center gap-3 bg-papaya px-5 py-3 font-black text-white hover:bg-papaya-dark sm:min-h-13 sm:px-6">Shop the pantry <ArrowRight size={20}/></Link>
-            <a href="tel:+8801618500629" className={`flex min-h-11 items-center justify-center font-black sm:min-h-12 ${slide.dark ? "text-white" : "text-cocoa"}`}>Call 01618-500629</a>
+
+          {/* Dots Navigation */}
+          <div className="absolute bottom-4 left-6 z-20 flex items-center gap-1.5 sm:left-10">
+            {slides.map((item, index) => (
+              <button
+                key={item.image}
+                type="button"
+                onClick={() => show(index)}
+                className={`h-2.5 rounded-full transition-all ${
+                  active === index ? "w-7 bg-primary" : "w-2.5 bg-gray-300 hover:bg-gray-400"
+                }`}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Prev/Next Buttons */}
+          <div className="absolute bottom-4 right-4 z-20 flex items-center gap-1.5">
+            <button
+              type="button"
+              onClick={() => show(active - 1)}
+              className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-heading shadow-sm transition-colors hover:bg-primary hover:text-white"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft size={18} />
+            </button>
+            <button
+              type="button"
+              onClick={() => show(active + 1)}
+              className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-heading shadow-sm transition-colors hover:bg-primary hover:text-white"
+              aria-label="Next slide"
+            >
+              <ChevronRight size={18} />
+            </button>
+          </div>
+        </section>
+
+        {/* Right Side Promo Cards (Desktop/Tablet) */}
+        <div className="hidden lg:grid grid-rows-2 gap-4">
+          {/* Side Promo 1: Cat Nutrition */}
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary-border bg-[#F2FCE4] p-6 transition-all hover:shadow-md">
+            <div>
+              <span className="inline-block rounded-full bg-primary/15 px-2.5 py-0.5 text-[11px] font-bold text-primary">
+                Kitten & Cat Care
+              </span>
+              <h3 className="mt-2 text-lg font-bold text-heading">
+                Dry Food & Gravy Pouches
+              </h3>
+              <p className="mt-1 text-xs text-text-body">
+                Reflex, SmartHeart & Me-O in stock
+              </p>
+            </div>
+            <Link
+              href="/category/cat-food"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-extrabold text-primary hover:underline"
+            >
+              <span>Shop Cat Food</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          {/* Side Promo 2: Treats & Litter */}
+          <div className="relative flex flex-col justify-between overflow-hidden rounded-2xl border border-primary-border bg-[#FFF3EB] p-6 transition-all hover:shadow-md">
+            <div>
+              <span className="inline-block rounded-full bg-[#F99D1C]/15 px-2.5 py-0.5 text-[11px] font-bold text-[#F99D1C]">
+                Daily Treats & Litter
+              </span>
+              <h3 className="mt-2 text-lg font-bold text-heading">
+                Creamy Treats & Tofu Litter
+              </h3>
+              <p className="mt-1 text-xs text-text-body">
+                Drools, Wanpy & Kasty Tofu Litter
+              </p>
+            </div>
+            <Link
+              href="/category/treats"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-extrabold text-[#F99D1C] hover:underline"
+            >
+              <span>Explore Treats</span>
+              <ArrowRight size={14} />
+            </Link>
           </div>
         </div>
       </div>
-
-      <p className="sr-only" aria-live="polite">Slide {active + 1} of {slides.length}: {slide.title}</p>
-      <div className="absolute bottom-4 left-4 z-20 flex items-center bg-white/90 px-1 md:left-1/2 md:-translate-x-1/2" aria-label="Choose a hero slide">
-        {slides.map((item, index) => (
-          <button key={item.image} type="button" onClick={() => show(index)} className="grid min-h-11 min-w-11 place-items-center" aria-label={`Show slide ${index + 1}`} aria-current={active === index ? "true" : undefined}>
-            <span className={`block h-1.5 w-5 ${active === index ? "bg-papaya" : "bg-cocoa/25"}`} />
-          </button>
-        ))}
-      </div>
-      <div className="absolute bottom-4 right-4 z-20 flex border border-white/30 bg-cocoa text-white">
-        <button type="button" onClick={() => show(active - 1)} className="grid min-h-11 min-w-11 place-items-center border-r border-white/20 hover:bg-white/10" aria-label="Previous hero slide"><ChevronLeft size={20}/></button>
-        <button type="button" onClick={() => show(active + 1)} className="grid min-h-11 min-w-11 place-items-center hover:bg-white/10" aria-label="Next hero slide"><ChevronRight size={20}/></button>
-      </div>
-    </section>
+    </div>
   );
 }

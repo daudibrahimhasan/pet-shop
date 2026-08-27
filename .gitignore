@@ -1,11 +1,60 @@
-node_modules
-.next
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+.yarn/install-state.gz
+
+# Next.js & Turbopack build outputs
+/.next/
+/out/
+/build
+/dist
+*.tsbuildinfo
+next-env.d.ts
+
+# Environment variables & local secrets
 .env
 .env*.local
-*.tsbuildinfo
-.vercel
-.design-backup
-.codex
-out
+.env.production
+.env.development
 
+# Vercel & Deployment metadata
+/.vercel
+/.turbo
 
+# Reference samples & scrapers
+/SAMPLE
+/SAMPLE/
+.SAMPLE
+
+# Local agent artifacts & design backups
+/.codex
+/.agents
+/.design-backup
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# System & OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+
+# IDE & Editor files
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project

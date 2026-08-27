@@ -7,9 +7,13 @@ import { removeProduct } from "@/app/admin/actions";
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <button type="submit" disabled={pending} className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-bold text-red-700 hover:bg-red-50 disabled:opacity-50">
-      <Trash2 size={16} />
-      {pending ? "Removing..." : "Remove"}
+    <button
+      type="submit"
+      disabled={pending}
+      className="inline-flex items-center gap-1.5 border border-red-200 bg-red-50 hover:bg-red-100 px-3 py-1.5 text-xs font-bold text-red-800 transition-colors disabled:opacity-50"
+    >
+      <Trash2 size={13} strokeWidth={2} />
+      <span>{pending ? "Removing..." : "Remove"}</span>
     </button>
   );
 }
@@ -19,7 +23,9 @@ export function RemoveProductButton({ id, name }: { id: string; name: string }) 
     <form
       action={removeProduct}
       onSubmit={(event) => {
-        if (!window.confirm(`Remove “${name}” from the catalogue? It will disappear from the storefront.`)) event.preventDefault();
+        if (!window.confirm(`Remove “${name}” from the catalogue? It will disappear from the storefront.`)) {
+          event.preventDefault();
+        }
       }}
     >
       <input type="hidden" name="id" value={id} />

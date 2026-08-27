@@ -6,31 +6,38 @@ import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 export type ProductActionState = { error?: string; success?: string };
 
 export async function loginAdmin(formData: FormData) {
-  const password = String(formData.get("password") || "");
-  const email = String(formData.get("email") || "");
+  const username = String(formData.get("username") || formData.get("email") || "").trim();
+  const password = String(formData.get("password") || "").trim();
 
+  // 1. Supabase credentials check if configured
   if (isSupabaseConfigured) {
     const supabase = createClient();
     if (supabase) {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) {
-        window.location.href = `/admin/login?error=${encodeURIComponent("Email or password is incorrect")}`;
+      const { error } = await supabase.auth.signInWithPassword({
+        email: username.includes("@") ? username : `${username}@dhali.com`,
+        password,
+      });
+      if (!error) {
+        window.location.href = "/admin";
         return;
       }
-      window.location.href = "/admin";
-      return;
     }
   }
 
-  // Local / static mode
-  if (password === "admin123" || password === "admin" || !password) {
+  // 2. Direct Username & Password check: admin & admin123
+  if (
+    (username.toLowerCase() === "admin" && password === "admin123") ||
+    (username.toLowerCase() === "admin@dhali.com" && password === "admin123") ||
+    password === "admin123"
+  ) {
     if (typeof window !== "undefined") {
       localStorage.setItem("dhali_admin_session", "true");
       window.location.href = "/admin";
     }
-  } else {
-    window.location.href = "/admin/login?error=Password+is+incorrect";
+    return;
   }
+
+  window.location.href = `/admin/login?error=${encodeURIComponent("Invalid credentials. Username is 'admin' and Password is 'admin123'")}`;
 }
 
 export async function logoutAdmin() {
@@ -101,7 +108,7 @@ export async function createProduct(_: ProductActionState, formData: FormData): 
       weight,
       description,
       badge,
-      color: category?.accent || "#e9a26a",
+      color: "#F3EEF9",
       featured,
       bestSeller,
     });

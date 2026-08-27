@@ -1,103 +1,214 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, MapPin, PhoneCall, Truck } from "lucide-react";
-import { HeroCarousel } from "@/components/hero-carousel";
+import { ChevronRight, MapPin, Sparkles } from "lucide-react";
+import { CategorySidebar } from "@/components/category-sidebar";
 import { ProductCard } from "@/components/product-card";
+import { CategoryProductTabsSection } from "@/components/category-product-tabs-section";
+import { HeroBanner } from "@/components/hero-banner";
+import { DhaliPromoBanner } from "@/components/dhali-promo-banner";
 import { getProducts } from "@/lib/catalog";
+import { featuredCategoryBoxes, subcategoryChips } from "@/lib/data";
 import { assetPath } from "@/lib/assets";
 
 export default async function HomePage() {
   const products = await getProducts();
-  const bestSellers = products.filter((product) => product.bestSeller).slice(0, 4);
+
+  // Top flash sale & popular products
+  const topFeedProducts = products.slice(0, 4);
+
+  // Dear Dog products
+  const dogProducts = products.filter(
+    (p) => p.categorySlug === "dog-food" || p.categorySlug === "dog-health-accessories"
+  );
+
+  // Dear Cat products
+  const catPouchProducts = products.filter(
+    (p) => p.categorySlug === "cat-food"
+  );
 
   return (
-    <>
-      <HeroCarousel />
+    <div className="container-page py-3 sm:py-4 pb-24 md:pb-10">
+      {/* 2-COLUMN DESKTOP LAYOUT (Left Sidebar + Right Content) */}
+      <div className="flex gap-6 items-start">
+        {/* Left Category Sidebar */}
+        <CategorySidebar />
 
-      <section className="container-page grid gap-px overflow-hidden bg-clay sm:grid-cols-3" aria-label="Store benefits">
-        <div className="flex min-h-16 items-center gap-3 bg-white px-4 sm:min-h-20 sm:px-5">
-          <MapPin size={22} className="text-papaya"/>
-          <div><strong className="block text-sm">Gulshan-2 storefront</strong><span className="text-xs text-muted">D.N.C.C Market</span></div>
-        </div>
-        <div className="flex min-h-16 items-center gap-3 bg-white px-4 sm:min-h-20 sm:px-5">
-          <Truck size={22} className="text-sage"/>
-          <div><strong className="block text-sm">Cash on Delivery</strong><span className="text-xs text-muted">Pay when it arrives</span></div>
-        </div>
-        <a href="tel:+8801618500629" className="flex min-h-16 items-center gap-3 bg-white px-4 hover:bg-mint sm:min-h-20 sm:px-5">
-          <PhoneCall size={22} className="text-papaya"/>
-          <div><strong className="block text-sm">Order support</strong><span className="text-xs text-muted">01618-500629</span></div>
-        </a>
-      </section>
+        {/* Main Content Column */}
+        <main className="flex-1 min-w-0 space-y-6 sm:space-y-8">
+          {/* 1. DHALI'S ORIGINAL HERO BANNER WITH BRANDED PACKAGING & PETS */}
+          <HeroBanner />
 
-      <section className="container-page py-12 md:py-24" aria-labelledby="collections-title">
-        <div className="mb-6 max-w-2xl md:mb-8">
-          <h2 id="collections-title" className="display text-3xl font-bold sm:text-4xl md:text-6xl">Start with their bowl.</h2>
-          <p className="mt-3 text-sm leading-6 text-muted sm:text-base sm:leading-7">Clear choices for cats and dogs, without digging through a crowded catalogue.</p>
-        </div>
-        <div className="grid gap-3 md:gap-4 lg:grid-cols-2">
-          <Link href="/category/cat-food" className="group relative min-h-[280px] overflow-hidden bg-cocoa text-white md:min-h-[360px]">
-            <Image src={assetPath("/images/cat-collection.png")} alt="A tabby cat beside a bowl and cat food" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"/>
-            <div className="absolute inset-0 bg-gradient-to-r from-cocoa via-cocoa/45 to-transparent"/>
-            <div className="absolute inset-0 flex max-w-[280px] flex-col justify-end p-5 md:p-7">
-              <span className="text-sm font-bold text-turmeric">For cats</span>
-              <h3 className="display mt-1 text-3xl font-bold md:text-4xl">Cat pantry</h3>
-              <span className="mt-4 inline-flex items-center gap-2 font-black">Shop cat food <ArrowRight size={18}/></span>
-            </div>
-          </Link>
-          <Link href="/category/dog-food" className="group relative min-h-[280px] overflow-hidden bg-cocoa text-white md:min-h-[360px]">
-            <Image src={assetPath("/images/dog-collection.png")} alt="A golden retriever beside dog food and a bowl" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover"/>
-            <div className="absolute inset-0 bg-gradient-to-l from-cocoa via-cocoa/40 to-transparent"/>
-            <div className="absolute inset-0 ml-auto flex max-w-[280px] flex-col items-start justify-end p-5 md:p-7">
-              <span className="text-sm font-bold text-turmeric">For dogs</span>
-              <h3 className="display mt-1 text-3xl font-bold md:text-4xl">Dog pantry</h3>
-              <span className="mt-4 inline-flex items-center gap-2 font-black">Shop dog food <ArrowRight size={18}/></span>
-            </div>
-          </Link>
-        </div>
-        <div className="mt-3 grid gap-3 sm:mt-4 sm:grid-cols-2 sm:gap-4">
-          <Link href="/category/treats" className="flex min-h-24 items-center justify-between bg-turmeric p-5 sm:min-h-28 sm:p-6">
-            <div><span className="text-sm font-bold">Small rewards</span><h3 className="display text-2xl font-bold">Treats</h3></div>
-            <ArrowRight size={20}/>
-          </Link>
-          <Link href="/category/accessories" className="flex min-h-24 items-center justify-between bg-mint p-5 sm:min-h-28 sm:p-6">
-            <div><span className="text-sm font-bold text-sage">Everyday kit</span><h3 className="display text-2xl font-bold">Accessories</h3></div>
-            <ArrowRight size={20} className="text-sage"/>
-          </Link>
-        </div>
-      </section>
-
-      <section className="bg-surface py-12 md:py-24" aria-labelledby="best-title">
-        <div className="container-page">
-          <div className="mb-6 flex items-end justify-between gap-4 md:mb-8">
-            <div>
-              <h2 id="best-title" className="display text-3xl font-bold sm:text-4xl md:text-6xl">The repeat-order shelf.</h2>
-              <p className="mt-2 text-sm text-muted sm:mt-3 sm:text-base">Products customers come back for.</p>
-            </div>
-            <Link href="/shop" className="hidden min-h-11 items-center gap-2 font-black text-papaya sm:flex">View all products <ArrowRight size={18}/></Link>
+          {/* 2. DHALI'S STORE HEADER STACK */}
+          <div className="text-center py-1 sm:py-2">
+            <span className="inline-flex items-center gap-1.5 bg-[#F3EEF9] px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[#55387D] border border-[#55387D]/20">
+              <MapPin size={12} strokeWidth={2.5} />
+              <span>D.N.C.C Market, Gulshan-2, Dhaka</span>
+            </span>
+            <h1 className="text-base font-black text-[#111827] sm:text-2xl md:text-3xl leading-tight mt-1.5 tracking-tight uppercase">
+              DHALI&apos;S Unique Collection
+            </h1>
+            <p className="text-xs font-bold text-[#4B5563] sm:text-sm mt-0.5 max-w-xl mx-auto">
+              Authentic Imported Dog & Cat Nutrition • Cash on Delivery Across Bangladesh
+            </p>
           </div>
-          {bestSellers.length ? (
-            <div className="grid grid-cols-2 gap-2.5 md:grid-cols-4 md:gap-5">{bestSellers.map((product) => <ProductCard key={product.id} product={product}/>)}</div>
-          ) : (
-            <div className="bg-mist p-10 text-center text-muted">Products will appear here after they are uploaded in admin.</div>
-          )}
-          <Link href="/shop" className="mt-6 flex min-h-12 items-center justify-center border border-papaya font-black text-papaya sm:hidden">View all products <ArrowRight size={18}/></Link>
-        </div>
-      </section>
 
-      <section className="container-page py-12 md:py-24">
-        <div className="grid overflow-hidden bg-cocoa text-white md:grid-cols-[1.15fr_.85fr]">
-          <div className="p-6 md:p-14">
-            <h2 className="display max-w-[12ch] text-3xl font-bold leading-tight sm:text-4xl md:text-6xl">Order online. Pay at your door.</h2>
-            <p className="mt-4 text-sm leading-6 text-white/75 sm:mt-5 sm:text-base sm:leading-7">Choose what you need, add your Dhaka delivery address, and place a Cash on Delivery order. We&apos;ll call if anything needs checking.</p>
-            <Link href="/shop" className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-papaya px-6 font-black text-white sm:mt-8 sm:w-auto">Start an order <ArrowRight size={18}/></Link>
+          {/* 3. FEATURED CATEGORIES (SHARP SQUARE GRID STACKS) */}
+          <section aria-labelledby="featured-categories-title">
+            <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-2 mb-3 sm:mb-4">
+              <h2
+                id="featured-categories-title"
+                className="text-xs sm:text-sm font-black uppercase tracking-wider text-[#55387D] flex items-center gap-1.5"
+              >
+                <Sparkles size={14} strokeWidth={2.2} />
+                <span>Featured Categories</span>
+              </h2>
+              <Link
+                href="/shop"
+                className="text-xs font-black uppercase tracking-wider text-[#6B7280] hover:text-[#55387D]"
+              >
+                View All →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-3 gap-2.5 sm:gap-3.5 lg:grid-cols-6">
+              {featuredCategoryBoxes.map((cat, idx) => (
+                <Link
+                  key={idx}
+                  href={`/category/${cat.slug}`}
+                  className="featured-cat-box group p-2.5 sm:p-3"
+                >
+                  <div className="relative h-16 w-16 sm:h-24 sm:w-24 mb-2">
+                    <Image
+                      src={assetPath(cat.image)}
+                      alt={cat.name}
+                      fill
+                      sizes="(max-width: 640px) 30vw, 112px"
+                      className="object-contain transition-transform duration-200 group-hover:scale-105"
+                    />
+                  </div>
+                  <span className="text-[9.5px] sm:text-[11px] font-black text-[#111827] uppercase tracking-tight line-clamp-1 group-hover:text-[#55387D]">
+                    {cat.name}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          {/* 4. SUBCATEGORY TAG CHIPS ROW (SHARP RECTANGULAR) */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 py-1">
+            {subcategoryChips.map((chip, idx) => (
+              <Link
+                key={idx}
+                href={chip.href}
+                className="subcat-chip text-[10px] sm:text-xs py-1.5 px-3.5"
+              >
+                {chip.name}
+              </Link>
+            ))}
           </div>
-          <div className="grid content-center gap-5 bg-mint p-6 text-cocoa md:gap-6 md:p-12">
-            <div className="flex gap-3"><BadgeCheck size={22} className="text-sage"/><div><strong>COD only</strong><p className="mt-1 text-sm text-muted">No card, bKash or Nagad payment is requested.</p></div></div>
-            <div className="flex gap-3"><Truck size={22} className="text-sage"/><div><strong>Dhaka delivery</strong><p className="mt-1 text-sm text-muted">Delivery charge is confirmed for your area.</p></div></div>
-            <div className="flex gap-3"><MapPin size={22} className="text-sage"/><div><strong>Pick up in Gulshan-2</strong><p className="mt-1 text-sm text-muted">G-1,2,3, D.N.C.C Market.</p></div></div>
+
+          {/* 5. DHALI'S AUTHENTIC BRANDED PROMOTIONAL BANNER */}
+          <DhaliPromoBanner />
+
+          {/* 6. TOP PRODUCT FEED / FLASH SALE */}
+          <section aria-labelledby="top-feed-title" className="pt-1">
+            <div className="flex items-center justify-between border-b border-[#E5E7EB] pb-2.5 mb-3.5 sm:mb-4">
+              <h2
+                id="top-feed-title"
+                className="text-sm font-black uppercase tracking-tight text-[#111827] sm:text-lg"
+              >
+                Flash Sale & Popular Items
+              </h2>
+              <Link
+                href="/shop"
+                className="text-xs font-black uppercase tracking-wider text-[#55387D] hover:underline"
+              >
+                Explore Catalogue →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-4">
+              {topFeedProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+
+          {/* 7. "Dear DOG" HERO BANNER & PRODUCTS */}
+          <section className="pt-2">
+            <div className="relative overflow-hidden bg-gradient-to-r from-[#FEE8E8] via-[#FFF0F0] to-[#FED6D6] p-4 sm:p-6 mb-4 border border-[#FBCACA] shadow-xs">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] sm:text-xs font-black uppercase text-[#55387D] tracking-wider">
+                    DHALI&apos;S Canine Nutrition
+                  </span>
+                  <h2 className="text-xl sm:text-3xl font-black text-[#55387D] tracking-tight mt-0.5 uppercase">
+                    Dear <span className="text-[#FF3B69]">DOG</span>
+                  </h2>
+                  <p className="text-[11px] sm:text-xs text-[#4B5563] mt-0.5 max-w-sm font-bold">
+                    Healthy dog biscuits, canned meals, and nutritional supplements.
+                  </p>
+                </div>
+                <div className="hidden sm:block text-right">
+                  <Link
+                    href="/category/dog-food"
+                    className="inline-flex items-center gap-1.5 bg-[#55387D] px-4 py-2 text-xs font-black uppercase tracking-wider text-white shadow-xs hover:bg-[#432B64]"
+                  >
+                    <span>Explore Dog Food</span>
+                    <ChevronRight size={14} strokeWidth={2.2} />
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-4">
+              {dogProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+
+          {/* 8. "Dear CAT" HERO BANNER & PRODUCTS */}
+          <section className="pt-2">
+            <div className="relative overflow-hidden bg-gradient-to-r from-[#FDE1E6] via-[#FFF0F3] to-[#FDE1E6] p-4 sm:p-6 mb-4 border border-[#FAD0D8] shadow-xs">
+              <div className="flex items-center justify-between">
+                <div>
+                  <span className="text-[10px] sm:text-xs font-black uppercase text-[#55387D] tracking-wider">
+                    DHALI&apos;S Feline Gourmet
+                  </span>
+                  <h2 className="text-xl sm:text-3xl font-black text-[#55387D] tracking-tight mt-0.5 uppercase">
+                    Dear <span>CAT</span>
+                  </h2>
+                  <p className="text-[11px] sm:text-xs text-[#4B5563] mt-0.5 max-w-sm font-bold">
+                    Pure tuna gourmet, delicious gravy pouches, and lickable purées.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-4">
+              {catPouchProducts.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+
+          {/* 9. DHALI'S PLATINUM MEMBERSHIP BANNER */}
+          <div className="relative w-full border border-[#E5E7EB] bg-white shadow-xs overflow-hidden">
+            <Image
+              src={assetPath("/images/banners/dhali-membership-banner.jpg")}
+              alt="DHALI'S UNIQUE COLLECTION - Purchase 5000 TK Get Platinum Membership Card"
+              width={1376}
+              height={768}
+              sizes="(max-width: 1024px) 100vw, 1080px"
+              className="w-full h-auto object-contain block"
+            />
           </div>
-        </div>
-      </section>
-    </>
+
+          {/* 10. CATEGORY PRODUCT TABS */}
+          <CategoryProductTabsSection products={products} />
+        </main>
+      </div>
+    </div>
   );
 }
