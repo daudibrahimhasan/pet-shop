@@ -2,6 +2,7 @@
 
 import { categories } from "@/lib/data";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { assetPath } from "@/lib/assets";
 
 export type ProductActionState = { error?: string; success?: string };
 
@@ -18,7 +19,10 @@ export async function loginAdmin(formData: FormData) {
         password,
       });
       if (!error) {
-        window.location.href = "/admin";
+        if (typeof window !== "undefined") {
+          localStorage.setItem("dhali_admin_session", "true");
+          window.location.href = assetPath("/admin");
+        }
         return;
       }
     }
@@ -32,12 +36,12 @@ export async function loginAdmin(formData: FormData) {
   ) {
     if (typeof window !== "undefined") {
       localStorage.setItem("dhali_admin_session", "true");
-      window.location.href = "/admin";
+      window.location.href = assetPath("/admin");
     }
     return;
   }
 
-  window.location.href = `/admin/login?error=${encodeURIComponent("Invalid credentials. Username is 'admin' and Password is 'admin123'")}`;
+  window.location.href = `${assetPath("/admin/login")}?error=${encodeURIComponent("Invalid credentials. Username is 'admin' and Password is 'admin123'")}`;
 }
 
 export async function logoutAdmin() {
@@ -49,7 +53,7 @@ export async function logoutAdmin() {
     await supabase?.auth.signOut();
   }
   if (typeof window !== "undefined") {
-    window.location.href = "/admin/login";
+    window.location.href = assetPath("/admin/login");
   }
 }
 

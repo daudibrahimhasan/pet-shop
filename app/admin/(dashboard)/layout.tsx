@@ -1,15 +1,13 @@
-import { redirect } from "next/navigation";
 import { AdminNav } from "@/components/admin/admin-nav";
-import { getAdmin } from "@/lib/admin";
+import { AdminGuard } from "@/components/admin/admin-guard";
 
-export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-  const admin = await getAdmin();
-  if (!admin) redirect("/admin/login");
-
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[#F4F5F8] text-[#111827]">
-      <AdminNav />
-      <main className="container-page py-6 sm:py-10">{children}</main>
-    </div>
+    <AdminGuard>
+      <div className="min-h-screen bg-[#F4F5F8] text-[#111827]">
+        <AdminNav />
+        <main className="container-page py-6 sm:py-10">{children}</main>
+      </div>
+    </AdminGuard>
   );
 }
