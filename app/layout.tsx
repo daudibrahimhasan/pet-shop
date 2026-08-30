@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Analytics } from "@/components/analytics";
 import { MobileCartBar } from "@/components/mobile-cart-bar";
+import { FloatingWhatsApp } from "@/components/whatsapp-floating";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <Header />
           <main className="min-h-[60vh]">{children}</main>
           <Footer />
+          <FloatingWhatsApp />
           <MobileCartBar />
           <Analytics />
         </CartProvider>

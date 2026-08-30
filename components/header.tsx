@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import {
   ChevronDown,
   ChevronRight,
@@ -11,8 +11,6 @@ import {
   Linkedin,
   MapPin,
   Menu,
-  Phone,
-  Search,
   ShoppingBag,
   ShoppingCart,
   Truck,
@@ -20,11 +18,12 @@ import {
   X,
   Youtube,
 } from "lucide-react";
-import { FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 import { categories, formatPrice } from "@/lib/data";
 import { assetPath } from "@/lib/assets";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
+import { HeaderSearch } from "@/components/header-search";
 
 const mainNav = [
   { href: "/", label: "Home" },
@@ -41,10 +40,8 @@ const mainNav = [
 export function Header() {
   const { count, subtotal } = useCart();
   const pathname = usePathname();
-  const router = useRouter();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [query, setQuery] = useState("");
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -53,15 +50,6 @@ export function Header() {
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, []);
-
-  const handleSearch = (e: FormEvent) => {
-    e.preventDefault();
-    const val = query.trim();
-    if (val) {
-      router.push(`/shop?q=${encodeURIComponent(val)}`);
-      setMobileMenuOpen(false);
-    }
-  };
 
   if (pathname.startsWith("/admin")) return null;
 
@@ -72,14 +60,6 @@ export function Header() {
         <div className="container-page flex min-h-[36px] items-center justify-between gap-2 py-1 px-3 sm:px-0">
           {/* Desktop Left: Store Details */}
           <div className="hidden sm:flex items-center gap-3 sm:gap-4 text-xs font-bold">
-            <a
-              href="tel:+8801618500629"
-              className="flex items-center gap-1.5 hover:text-[#55387D]"
-            >
-              <Phone size={13} strokeWidth={2.2} className="text-[#55387D]" />
-              <span>01618-500629</span>
-            </a>
-            <span className="text-gray-300">|</span>
             <Link
               href="/about"
               className="flex items-center gap-1.5 hover:text-[#55387D]"
@@ -125,9 +105,9 @@ export function Header() {
 
       {/* 2. MAIN HEADER (CRISP SQUARE EDGES, CLEAN LINES) */}
       <header className="sticky top-0 z-40 bg-white border-b border-[#E5E7EB] shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
-        <div className="container-page py-3">
-          {/* Top Row: Logo, Search (Desktop), Actions */}
-          <div className="flex items-center justify-between gap-3">
+        <div className="container-page py-2.5 sm:py-3">
+          {/* Top Row: Logo, Long Search (Desktop), Actions */}
+          <div className="flex items-center justify-between gap-3 sm:gap-6">
             {/* Mobile Menu Button */}
             <button
               type="button"
@@ -142,10 +122,10 @@ export function Header() {
             {/* Dhali Logo (Clean Square Framing) */}
             <Link
               href="/"
-              className="flex shrink-0 items-center gap-3"
+              className="flex shrink-0 items-center gap-2.5 sm:gap-3"
               aria-label="DHALI's Unique Collection Home"
             >
-              <div className="relative h-12 w-12 sm:h-14 sm:w-14 border border-[#E5E7EB] bg-white p-1">
+              <div className="relative h-11 w-11 sm:h-13 sm:w-13 border border-[#E5E7EB] bg-white p-1">
                 <Image
                   src={assetPath("/brand/dhali-logo.png")}
                   alt="DHALI's Unique Collection"
@@ -155,7 +135,7 @@ export function Header() {
                   className="object-contain"
                 />
               </div>
-              <div className="hidden xl:block">
+              <div className="hidden lg:block">
                 <span className="block text-base font-black tracking-tight text-[#111827] uppercase">
                   DHALI&apos;S
                 </span>
@@ -165,44 +145,19 @@ export function Header() {
               </div>
             </Link>
 
-            {/* Desktop Search Bar (Sharp Geometric Box) */}
-            <form
-              onSubmit={handleSearch}
-              className="relative hidden flex-1 max-w-2xl md:block mx-4"
-              role="search"
-            >
-              <div className="relative flex items-center">
-                <input
-                  type="search"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  placeholder="What can we help you find? (Search cat food, treats, litter...)"
-                  className="w-full border border-[#D1D5DB] bg-white py-2.5 pl-4 pr-12 text-sm text-[#111827] placeholder:text-[#9CA3AF] outline-none transition-colors focus:border-[#55387D] focus:ring-1 focus:ring-[#55387D]"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-1 top-1 bottom-1 px-3.5 bg-[#55387D] hover:bg-[#432B64] text-white flex items-center justify-center transition-colors"
-                  aria-label="Search"
-                >
-                  <Search size={16} strokeWidth={2.2} />
-                </button>
-              </div>
-            </form>
+            {/* Desktop Search Bar (Extra Long & Expansive with Live Suggestions) */}
+            <div className="hidden md:flex flex-1 items-center min-w-0">
+              <HeaderSearch />
+            </div>
 
-            {/* Right Stack: Hotline & Basket */}
-            <div className="flex items-center gap-3">
-              {/* Hotline Box (Desktop) */}
-              <div className="hidden lg:flex items-center gap-2 border border-[#55387D]/30 bg-[#F3EEF9] px-3.5 py-2 text-xs text-[#55387D] font-bold">
-                <Phone size={13} strokeWidth={2.2} />
-                <span>01618-500629</span>
-              </div>
-
+            {/* Right Stack: Basket */}
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               {/* Desktop Basket Button (Sharp Rectangular) */}
               <Link
                 href="/cart"
-                className="hidden md:flex items-center gap-2 border border-[#111827] bg-white px-4 py-2 text-xs font-black uppercase tracking-wider text-[#111827] transition-all hover:bg-[#55387D] hover:text-white hover:border-[#55387D]"
+                className="hidden md:flex items-center gap-2 border border-[#111827] bg-white px-4 py-2.5 text-xs font-black uppercase tracking-wider text-[#111827] transition-all hover:bg-[#55387D] hover:text-white hover:border-[#55387D] shadow-xs"
               >
-                <ShoppingBag size={15} strokeWidth={2.2} />
+                <ShoppingBag size={16} strokeWidth={2.2} />
                 <span>My Basket ({count})</span>
               </Link>
 
@@ -220,24 +175,9 @@ export function Header() {
             </div>
           </div>
 
-          {/* Mobile Search Bar Row (Sharp Geometric) */}
+          {/* Mobile Search Bar Row (Long & Interactive Suggestions) */}
           <div className="mt-2.5 md:hidden">
-            <form onSubmit={handleSearch} className="relative flex">
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="What can we help you find?"
-                className="w-full border border-[#D1D5DB] bg-white py-2 pl-3 pr-10 text-xs text-[#111827] placeholder:text-[#9CA3AF] outline-none focus:border-[#55387D]"
-              />
-              <button
-                type="submit"
-                className="absolute right-0 top-0 bottom-0 px-3 bg-[#55387D] text-white"
-                aria-label="Search"
-              >
-                <Search size={15} strokeWidth={2.2} />
-              </button>
-            </form>
+            <HeaderSearch isMobile />
           </div>
         </div>
 

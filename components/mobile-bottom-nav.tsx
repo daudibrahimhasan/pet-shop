@@ -3,9 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutGrid, MessageCircle, PackageCheck, ShoppingBag } from "lucide-react";
+import { LayoutGrid, PackageCheck, ShoppingBag } from "lucide-react";
 import { useCart } from "@/components/cart-provider";
 import { assetPath } from "@/lib/assets";
+import { WhatsAppIcon } from "@/components/whatsapp-icon";
 
 export function MobileBottomNav({ onOpenCategories }: { onOpenCategories: () => void }) {
   const { count } = useCart();
@@ -103,14 +104,16 @@ export function MobileBottomNav({ onOpenCategories }: { onOpenCategories: () => 
           <span>Track</span>
         </Link>
 
-        {/* 5. Support Helpline */}
+        {/* 5. Direct WhatsApp Support */}
         <a
-          href="tel:+8801618500629"
-          className="flex flex-1 flex-col items-center justify-center gap-1 min-h-[44px] min-w-[44px] text-[10px] font-black uppercase tracking-wider text-[#4B5563] hover:text-[#55387D]"
-          aria-label="Call support hotline"
+          href="https://wa.me/8801618500629?text=Hello%20DHALI%27S%20Unique%20Collection%2C%20I%20would%20like%20to%20inquire%20about%20your%20pet%20products."
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-1 flex-col items-center justify-center gap-1 min-h-[44px] min-w-[44px] text-[10px] font-black uppercase tracking-wider text-[#4B5563] hover:text-[#25D366]"
+          aria-label="WhatsApp Support directly"
         >
-          <MessageCircle size={19} strokeWidth={2} className="text-[#374151]" />
-          <span>Support</span>
+          <WhatsAppIcon size={19} className="text-[#25D366]" />
+          <span>WhatsApp</span>
         </a>
       </div>
     </nav>
