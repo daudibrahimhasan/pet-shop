@@ -121,6 +121,11 @@ export function ProductDetail({ product, relatedProducts = [] }: ProductDetailPr
                 Brand: {product.brand}
               </span>
             )}
+            {product.barcode && (
+              <span className="bg-[#F9FAFB] border border-[#E5E7EB] px-2.5 py-1 text-xs font-bold text-[#4B5563]">
+                Barcode: {product.barcode}
+              </span>
+            )}
             <span className="px-2.5 py-1 text-xs font-black uppercase border bg-[#ECFFEC] text-green-800 border-green-300">
               {isPriceSet ? (isOutOfStock ? "✕ Out of Stock" : `✓ In Stock (${product.stock} units)`) : "In Stock Soon"}
             </span>

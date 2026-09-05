@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Check,
   Filter,
@@ -33,6 +33,11 @@ export function ShopGrid({
   const [sort, setSort] = useState(initialSort);
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
+  useEffect(() => {
+    const urlQuery = new URLSearchParams(window.location.search).get("q");
+    if (urlQuery) setQuery(urlQuery);
+  }, []);
+
   // Extract unique brands
   const brands = useMemo(() => {
     const set = new Set<string>();
@@ -63,6 +68,7 @@ export function ShopGrid({
         (p) =>
           p.name.toLowerCase().includes(q) ||
           p.description.toLowerCase().includes(q) ||
+          (p.barcode && p.barcode.includes(q)) ||
           (p.brand && p.brand.toLowerCase().includes(q))
       );
     }

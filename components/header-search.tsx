@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Flame, Layers, Search, Sparkles, X } from "lucide-react";
-import { formatPrice } from "@/lib/data";
+import { categories as catalogueCategories, formatPrice, products as catalogueProducts } from "@/lib/data";
+import { assetPath } from "@/lib/assets";
 import { Category, Product } from "@/lib/types";
 
 const POPULAR_SEARCHES = [
@@ -37,7 +38,7 @@ export function HeaderSearch({ isMobile = false, onNavigate }: HeaderSearchProps
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Debounced search fetch
+  // Keep search client-side so it works on static hosts such as GitHub Pages.
   useEffect(() => {
     const trimmed = query.trim();
     if (!trimmed) {
@@ -49,20 +50,28 @@ export function HeaderSearch({ isMobile = false, onNavigate }: HeaderSearchProps
     }
 
     setLoading(true);
-    const timer = setTimeout(async () => {
-      try {
-        const res = await fetch(`/api/search?q=${encodeURIComponent(trimmed)}`);
-        if (res.ok) {
-          const data = await res.json();
-          setMatchedProducts(data.products || []);
-          setMatchedCategories(data.categories || []);
-          setTotalMatches(data.totalMatches || 0);
-        }
-      } catch (err) {
-        console.error("Search fetch failed", err);
-      } finally {
-        setLoading(false);
-      }
+    const timer = setTimeout(() => {
+      const q = trimmed.toLowerCase();
+      const products = catalogueProducts.filter((product) =>
+        [
+          product.name,
+          product.description,
+          product.categoryName,
+          product.categorySlug,
+          product.brand,
+          product.barcode,
+        ].some((value) => value?.toLowerCase().includes(q))
+      );
+      const categories = catalogueCategories.filter((category) =>
+        [category.name, category.slug, category.description].some((value) =>
+          value.toLowerCase().includes(q)
+        )
+      );
+
+      setMatchedProducts(products.slice(0, 8));
+      setMatchedCategories(categories.slice(0, 4));
+      setTotalMatches(products.length);
+      setLoading(false);
     }, 180);
 
     return () => clearTimeout(timer);
@@ -350,7 +359,7 @@ export function HeaderSearch({ isMobile = false, onNavigate }: HeaderSearchProps
                       <div className="relative h-10 w-10 shrink-0 border border-[#E5E7EB] bg-white p-0.5 flex items-center justify-center">
                         {prod.imageUrl ? (
                           <Image
-                            src={prod.imageUrl}
+                            src={assetPath(prod.imageUrl)}
                             alt={prod.name}
                             fill
                             sizes="40px"
