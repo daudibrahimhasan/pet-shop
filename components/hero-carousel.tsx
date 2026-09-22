@@ -36,7 +36,7 @@ const slides = [
     alt: "D.N.C.C Market Gulshan-2 storefront",
     badge: "Visit Or Order Online",
     badgeIcon: "tag",
-    title: "Visit Our Shop at D.N.C.C Market, Gulshan-2.",
+    title: "Visit Our Shop at G16 D.N.C.C Market, Gulshan-2.",
     description: "Open 7 days a week. Order online in 30 seconds or drop by our storefront for genuine pet care products at best market prices.",
     cta: "Order with COD",
     href: "/shop",
@@ -144,7 +144,7 @@ export function HeroCarousel() {
                 }`}
               >
                 <PhoneCall size={15} className="text-primary" />
-                <span>01618-500629</span>
+                <span>01618500629</span>
               </a>
             </div>
           </div>

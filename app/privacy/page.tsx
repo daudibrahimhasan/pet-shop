@@ -75,8 +75,8 @@ export default function PrivacyPage() {
             </p>
             <div className="mt-2.5 border border-[#E5E7EB] bg-[#F9FAFB] p-3.5 text-xs font-bold text-[#111827] space-y-1">
               <p>Email: <a href="mailto:dhalisuniquecollection@gmail.com" className="text-[#55387D] underline">dhalisuniquecollection@gmail.com</a></p>
-              <p>Hotline: <a href="tel:+8801618500629" className="text-[#55387D] underline">01618-500629</a></p>
-              <p>Address: G-1,2,3, D.N.C.C Market, Gulshan-2, Dhaka-1212</p>
+              <p>Hotline: <a href="tel:+8801618500629" className="text-[#55387D] underline">01618500629</a></p>
+              <p>Address: G16 D.N.C.C Market, Gulshan-2, Dhaka-1212</p>
             </div>
           </section>
         </div>

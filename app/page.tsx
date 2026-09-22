@@ -42,7 +42,7 @@ export default async function HomePage() {
           <div className="text-center py-1 sm:py-2">
             <span className="inline-flex items-center gap-1.5 bg-[#F3EEF9] px-3.5 py-1 text-[11px] font-black uppercase tracking-wider text-[#55387D] border border-[#55387D]/20">
               <MapPin size={12} strokeWidth={2.5} />
-              <span>D.N.C.C Market, Gulshan-2, Dhaka</span>
+              <span>G16 D.N.C.C Market, Gulshan-2, Dhaka-1212</span>
             </span>
             <h1 className="text-base font-black text-[#111827] sm:text-2xl md:text-3xl leading-tight mt-1.5 tracking-tight uppercase">
               DHALI&apos;S Unique Collection

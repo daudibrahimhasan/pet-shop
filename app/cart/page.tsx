@@ -162,8 +162,8 @@ export default function CartPage() {
               <strong className="text-[#111827] font-black tabular-nums">{formatPrice(subtotal)}</strong>
             </div>
             <div className="flex justify-between text-[#4B5563]">
-              <span>Estimated Delivery</span>
-              <span className="text-[#55387D] font-bold">Confirmed on call (COD)</span>
+              <span>Delivery Charge</span>
+              <span className="text-right text-[#55387D] font-bold">Added based on parcel weight (kg)</span>
             </div>
           </div>
 
@@ -184,7 +184,7 @@ export default function CartPage() {
             href="/checkout"
             className="mt-5 flex w-full items-center justify-center gap-2 bg-[#55387D] py-3.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-xs transition-colors hover:bg-[#432B64]"
           >
-            <span>Proceed to Checkout</span>
+            <span>Place Order</span>
             <ArrowRight size={16} strokeWidth={2.2} />
           </Link>
 

@@ -29,7 +29,7 @@ export default async function ShopPage() {
           DHALI&apos;S Pet Pantry & Care Collection
         </h1>
         <p className="mt-2 max-w-2xl text-xs leading-relaxed text-[#4B5563] sm:text-sm font-medium">
-          Authentic cat and dog nutrition, tasty treats, hygienic clumping litter, and everyday supplies from D.N.C.C Market, Gulshan-2. Cash on Delivery across Bangladesh.
+          Authentic cat and dog nutrition, tasty treats, hygienic clumping litter, and everyday supplies from G16 D.N.C.C Market, Gulshan-2. Cash on Delivery across Bangladesh.
         </p>
       </div>
 

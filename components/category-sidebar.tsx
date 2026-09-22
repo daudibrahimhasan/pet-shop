@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { ChevronRight, Layers } from "lucide-react";
-import { categories } from "@/lib/data";
+import { ChevronDown, ChevronRight, Layers } from "lucide-react";
+import { petCategoryGroups } from "@/lib/data";
 
 export function CategorySidebar() {
   return (
@@ -12,27 +12,38 @@ export function CategorySidebar() {
             <Layers size={15} strokeWidth={2.2} />
             <span>Pet Categories</span>
           </div>
-          <span className="text-[10px] bg-white/20 px-2 py-0.5 font-black">10</span>
+          <span className="text-[10px] bg-white/20 px-2 py-0.5 font-black">4</span>
         </div>
 
         {/* Grouped Stack Items (Sharp Geometric Rows) */}
         <div className="divide-y divide-[#E5E7EB]">
-          {categories.map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/category/${cat.slug}`}
-              className="flex items-center justify-between px-3.5 py-2.5 text-xs font-bold text-[#374151] transition-colors hover:bg-[#F8F5FC] hover:text-[#55387D] group"
-            >
-              <div className="flex items-center gap-2.5">
-                <span className="text-base group-hover:scale-105 transition-transform">{cat.symbol}</span>
-                <span className="truncate uppercase text-[11px] tracking-tight">{cat.name}</span>
+          {petCategoryGroups.map((group) => (
+            <div key={group.name} className="group/category">
+              <Link
+                href={group.href}
+                className="flex items-center justify-between px-3.5 py-3 text-xs font-bold text-[#374151] hover:bg-[#F8F5FC] hover:text-[#55387D]"
+                aria-haspopup="menu"
+              >
+                <div className="flex items-center gap-2.5">
+                  <span className="text-base" aria-hidden="true">{group.symbol}</span>
+                  <span className="truncate text-[11px] uppercase tracking-tight">{group.name}</span>
+                </div>
+                <ChevronDown size={13} strokeWidth={2.2} className="text-gray-400" />
+              </Link>
+              <div className="hidden border-t border-[#EEE9F3] bg-[#FCFAFE] py-1 group-hover/category:block group-focus-within/category:block" role="menu">
+                {group.children.map((child) => (
+                  <Link
+                    key={`${group.name}-${child.slug}`}
+                    href={`/category/${child.slug}`}
+                    className="flex items-center justify-between px-5 py-2 text-[10.5px] font-bold uppercase leading-snug text-[#5B6472] hover:bg-[#F3EEF9] hover:text-[#55387D]"
+                    role="menuitem"
+                  >
+                    <span>{child.name}</span>
+                    <ChevronRight size={11} strokeWidth={2} />
+                  </Link>
+                ))}
               </div>
-              <ChevronRight
-                size={13}
-                strokeWidth={2.2}
-                className="text-gray-300 group-hover:text-[#55387D] group-hover:translate-x-0.5 transition-all"
-              />
-            </Link>
+            </div>
           ))}
         </div>
       </div>

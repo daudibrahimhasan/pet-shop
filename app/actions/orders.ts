@@ -39,7 +39,7 @@ export async function placeCodOrder(input: unknown) {
       success: false,
       error: error.message.includes("unavailable")
         ? "One of the products is out of stock."
-        : "Could not place the order. Call 01618-500629 for help."
+        : "Could not place the order. Call 01618500629 for help."
     };
   }
 

@@ -10,7 +10,7 @@ const heroSlides = [
   {
     image: "/images/dhali-hero-branded.png",
     alt: "DHALI'S Unique Collection - Golden Retriever and Tabby Cat with Branded Pet Food",
-    tag: "D.N.C.C Market, Gulshan-2, Dhaka",
+    tag: "G16 D.N.C.C Market, Gulshan-2, Dhaka",
     tagIcon: "pin",
     title: "Fresh & Nutritious Food for the Pets You Love.",
     subtitle: "Imported dry kibble, delicious gravy pouches, clumping litter & pet care essentials with 100% Cash on Delivery in Dhaka.",
@@ -33,7 +33,7 @@ const heroSlides = [
     tag: "Physical Storefront in Gulshan-2",
     tagIcon: "sparkles",
     title: "Everything Your Dog & Cat Needs in One Shop.",
-    subtitle: "Visit our shop at G-1,2,3 D.N.C.C Market, Gulshan-2 or order online in seconds with zero advance payment.",
+    subtitle: "Visit our shop at G16 D.N.C.C Market, Gulshan-2 or order online in seconds with zero advance payment.",
     ctaText: "View Products",
     ctaLink: "/shop",
   },
@@ -110,7 +110,7 @@ export function HeroBanner() {
               className="inline-flex items-center gap-2 border-2 border-[#55387D] bg-white/95 px-4 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider text-[#55387D] shadow-xs transition-colors hover:bg-[#F3EEF9] btn-press"
             >
               <PhoneCall size={14} strokeWidth={2.2} />
-              <span>01618-500629</span>
+              <span>01618500629</span>
             </a>
           </div>
         </div>

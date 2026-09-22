@@ -18,7 +18,7 @@ export function FloatingWhatsApp() {
         rel="noopener noreferrer"
         className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white px-3 sm:px-3.5 py-2.5 rounded-full shadow-[0_4px_18px_rgba(37,211,102,0.45)] hover:shadow-[0_6px_24px_rgba(37,211,102,0.65)] transition-all duration-200 hover:scale-105 active:scale-95 group focus:outline-none focus:ring-2 focus:ring-[#25D366] focus:ring-offset-2"
         aria-label="WhatsApp directly"
-        title="WhatsApp (01618-500629)"
+        title="WhatsApp (01618500629)"
       >
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>

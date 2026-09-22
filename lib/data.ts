@@ -93,6 +93,48 @@ export const categories: Category[] = [
   },
 ];
 
+export const petCategoryGroups = [
+  {
+    name: "Cat",
+    symbol: "🐱",
+    href: "/category/cat-food",
+    children: [
+      { name: "Cat Food", slug: "cat-food" },
+      { name: "Cat Toys", slug: "cat-toys" },
+      { name: "Cat Litter", slug: "cat-litter" },
+      { name: "Cat Care & Health", slug: "cat-care-health" },
+      { name: "Cat Accessories", slug: "cat-accessories" },
+      { name: "Clothing, Beds & Carriers", slug: "clothing-beds-carrier" },
+    ],
+  },
+  {
+    name: "Dog",
+    symbol: "🐶",
+    href: "/category/dog-food",
+    children: [
+      { name: "Dog Food", slug: "dog-food" },
+      { name: "Dog Health & Accessories", slug: "dog-health-accessories" },
+      { name: "Clothing, Beds & Carriers", slug: "clothing-beds-carrier" },
+    ],
+  },
+  {
+    name: "Rabbit",
+    symbol: "🐇",
+    href: "/category/rabbit-food-accessories",
+    children: [
+      { name: "Rabbit Food & Accessories", slug: "rabbit-food-accessories" },
+    ],
+  },
+  {
+    name: "Bird",
+    symbol: "🦜",
+    href: "/category/bird-food-accessories",
+    children: [
+      { name: "Bird Food & Accessories", slug: "bird-food-accessories" },
+    ],
+  },
+];
+
 // Featured Categories: 6 items
 export const featuredCategoryBoxes = [
   { name: "ADULT FOOD", slug: "cat-food", image: "/images/categories/adult-food.png" },

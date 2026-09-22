@@ -224,7 +224,7 @@ export function ProductDetail({ product, relatedProducts = [] }: ProductDetailPr
                 className="inline-flex items-center justify-center gap-2 bg-[#55387D] hover:bg-[#432B64] px-8 py-3 text-xs sm:text-sm font-black uppercase tracking-wider text-white transition-colors shadow-xs"
               >
                 <PhoneCall size={16} strokeWidth={2.2} />
-                <span>Call Hotline for Stock & Pricing: 01618-500629</span>
+                <span>Call Hotline for Stock & Pricing: 01618500629</span>
               </a>
             )}
           </div>
@@ -302,8 +302,8 @@ export function ProductDetail({ product, relatedProducts = [] }: ProductDetailPr
           {activeTab === "shipping" && (
             <div className="space-y-2 font-medium">
               <p>• <strong>Cash on Delivery (COD):</strong> Pay in cash directly upon receiving your package.</p>
-              <p>• <strong>Store Pickup:</strong> G-1,2,3, D.N.C.C Market, Gulshan-2, Dhaka-1212.</p>
-              <p>• <strong>Support Hotline:</strong> 01618-500629.</p>
+              <p>• <strong>Store Pickup:</strong> G16 D.N.C.C Market, Gulshan-2, Dhaka-1212.</p>
+              <p>• <strong>Support Hotline:</strong> 01618500629.</p>
             </div>
           )}
         </div>

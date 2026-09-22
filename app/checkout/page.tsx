@@ -65,7 +65,7 @@ export default function CheckoutPage() {
       setError(
         reason instanceof Error
           ? reason.message
-          : "The order could not be processed. Please call 01618-500629 directly."
+          : "The order could not be processed. Please call 01618500629 directly."
       );
     } finally {
       setSubmitting(false);
@@ -91,7 +91,7 @@ export default function CheckoutPage() {
           <div className="mt-3 space-y-1.5 text-[#4B5563] font-medium">
             <p>• <strong>Store:</strong> DHALI&apos;S Unique Collection (Gulshan-2)</p>
             <p>• <strong>Payment Mode:</strong> Cash on Delivery (COD)</p>
-            <p>• <strong>Hotline:</strong> 01618-500629</p>
+            <p>• <strong>Hotline:</strong> 01618500629</p>
             <p>• Our team will call your mobile number to confirm before courier dispatch.</p>
           </div>
         </div>
@@ -264,7 +264,7 @@ export default function CheckoutPage() {
               </>
             ) : (
               <>
-                <span>Place Cash on Delivery Order</span>
+                <span>Place Order</span>
                 <ArrowRight size={15} strokeWidth={2.2} />
               </>
             )}
@@ -312,7 +312,7 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between text-[#4B5563]">
               <span>Delivery Charge</span>
-              <span className="text-[#55387D] font-bold">Confirmed on call (COD)</span>
+              <span className="text-right text-[#55387D] font-bold">Added based on parcel weight (kg)</span>
             </div>
             <div className="flex items-center justify-between border-t border-[#E5E7EB] pt-3 text-base">
               <span className="font-black uppercase text-[#111827] text-sm">Total Payable</span>
@@ -332,7 +332,7 @@ export default function CheckoutPage() {
 
           <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#6B7280]">
             <PhoneCall size={13} strokeWidth={2.2} className="text-[#55387D]" />
-            <span>Store hotline: <strong>01618-500629</strong></span>
+            <span>Store hotline: <strong>01618500629</strong></span>
           </div>
         </aside>
       </div>

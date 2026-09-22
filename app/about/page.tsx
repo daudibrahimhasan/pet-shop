@@ -5,7 +5,7 @@ import { assetPath } from "@/lib/assets";
 
 export const metadata = {
   title: "About Us | DHALI'S Unique Collection - Gulshan-2, Dhaka",
-  description: "Learn about DHALI'S Unique Collection, your trusted neighborhood pet shop at D.N.C.C Market, Gulshan-2, Dhaka.",
+  description: "Learn about DHALI'S Unique Collection, your trusted neighborhood pet shop at G16 D.N.C.C Market, Gulshan-2, Dhaka.",
 };
 
 export default function AboutPage() {
@@ -31,7 +31,7 @@ export default function AboutPage() {
             DHALI&apos;S Unique Collection
           </h1>
           <p className="mt-4 text-xs leading-relaxed text-[#4B5563] sm:text-base font-medium">
-            Located at <strong>G-1,2,3, D.N.C.C Market, Gulshan-2, Dhaka-1212</strong>, we are dedicated to supplying authentic imported dog and cat food, delicious treats, clumping cat litter, and pet accessories directly to your home with prompt Cash on Delivery.
+            Located at <strong>G16 D.N.C.C Market, Gulshan-2, Dhaka-1212</strong>, we are dedicated to supplying authentic imported dog and cat food, delicious treats, clumping cat litter, and pet accessories directly to your home with prompt Cash on Delivery.
           </p>
         </div>
       </div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
               <MapPin size={18} className="mt-1 shrink-0 text-[#FDC040]" />
               <span>
                 <strong>Shop Address:</strong><br />
-                G-1,2,3, D.N.C.C Market,<br />
+                G16 D.N.C.C Market,<br />
                 Gulshan-2, Dhaka-1212, Bangladesh
               </span>
             </div>
@@ -116,7 +116,7 @@ export default function AboutPage() {
               className="flex items-center gap-3 font-black text-white hover:text-[#FDC040] transition-colors"
             >
               <Phone size={18} className="shrink-0 text-[#FDC040]" />
-              <span>Hotline: 01618-500629</span>
+              <span>Hotline: 01618500629</span>
             </a>
 
             <div className="flex items-center gap-3 text-gray-300">

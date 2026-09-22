@@ -23,7 +23,7 @@ export function DhaliPromoBanner() {
               <span>DHALI&apos;S GULSHAN-2</span>
             </span>
             <h3 className="text-sm sm:text-base font-black uppercase tracking-tight text-[#111827] mt-1">
-              তুরস্কের সেরা পোষা প্রাণীর খাবার
+              বিশ্বের সেরা ব্র্যান্ডের পোষা প্রাণীর খাবার
             </h3>
             <p className="text-[11px] font-bold text-[#55387D]">
               Reflex & 100% Authentic Imported Pet Nutrition
@@ -50,10 +50,10 @@ export function DhaliPromoBanner() {
             className="flex items-center gap-2 bg-[#D91E18] hover:bg-[#B91C1C] px-5 py-2.5 text-xs sm:text-sm font-black uppercase tracking-wider text-white shadow-xs transition-colors"
           >
             <PhoneCall size={15} strokeWidth={2.5} />
-            <span>অর্ডার করুন: 01618-500629</span>
+            <span>অর্ডার করুন: 01618500629</span>
           </a>
           <span className="text-[10px] font-extrabold text-[#6B7280] uppercase tracking-wider">
-            G-1,2,3 D.N.C.C Market, Gulshan-2, Dhaka
+            G16 D.N.C.C Market, Gulshan-2, Dhaka-1212
           </span>
         </div>
       </div>

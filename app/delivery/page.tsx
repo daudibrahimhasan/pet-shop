@@ -3,7 +3,7 @@ import { ArrowRight, ChevronRight, Home, MapPin, Phone, Truck } from "lucide-rea
 
 export const metadata = {
   title: "Delivery & Cash on Delivery (COD) Policy | DHALI'S Unique Collection",
-  description: "Learn about Cash on Delivery pet food shipping across Dhaka and storefront pickup at D.N.C.C Market, Gulshan-2.",
+  description: "Learn about Cash on Delivery pet food shipping across Dhaka and storefront pickup at G16 D.N.C.C Market, Gulshan-2.",
 };
 
 export default function DeliveryPage() {
@@ -91,7 +91,7 @@ export default function DeliveryPage() {
             We deliver to all major Dhaka city areas including <strong>Gulshan, Banani, Baridhara, Bashundhara R/A, Dhanmondi, Uttara, Mohakhali, Mirpur, Badda, Rampura, and Malibagh</strong>, as well as nationwide courier delivery across Bangladesh.
           </p>
           <p className="text-xs leading-relaxed text-[#4B5563] sm:text-sm font-medium">
-            Orders are typically dispatched within <strong>24 to 48 hours</strong>. Delivery charges depend on package weight and location, and are confirmed with you by phone.
+            Orders are typically dispatched within <strong>24 to 48 hours</strong>. A weight-based delivery charge is added according to the parcel&apos;s total weight in kilograms and delivery location, then confirmed with you by phone.
           </p>
         </div>
 
@@ -104,10 +104,10 @@ export default function DeliveryPage() {
             Prefer immediate collection? You can pick up your order directly from our shop:
           </p>
           <div className="border border-[#E5E7EB] bg-white p-3.5 text-xs sm:text-sm font-black uppercase text-[#111827]">
-            G-1,2,3, D.N.C.C Market, Gulshan-2, Dhaka-1212
+            G16 D.N.C.C Market, Gulshan-2, Dhaka-1212
           </div>
           <p className="text-xs text-[#6B7280] font-medium">
-            For assistance or location guidance, call us directly at <strong className="text-[#55387D]">01618-500629</strong>.
+            For assistance or location guidance, call us directly at <strong className="text-[#55387D]">01618500629</strong>.
           </p>
         </div>
       </div>

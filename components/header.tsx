@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useCart } from "@/components/cart-provider";
-import { categories, formatPrice } from "@/lib/data";
+import { formatPrice, petCategoryGroups } from "@/lib/data";
 import { assetPath } from "@/lib/assets";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { HeaderSearch } from "@/components/header-search";
@@ -28,10 +28,6 @@ import { HeaderSearch } from "@/components/header-search";
 const mainNav = [
   { href: "/", label: "Home" },
   { href: "/shop", label: "Privilege Club" },
-  { href: "/category/cat-food", label: "Cat Food", hasSub: true },
-  { href: "/category/dog-food", label: "Dog Food", hasSub: true },
-  { href: "/category/cat-toys", label: "Cat Toys" },
-  { href: "/category/cat-litter", label: "Cat Litter", hasSub: true },
   { href: "/shop?q=Reflex", label: "Reflex" },
   { href: "/about", label: "About Shop" },
   { href: "/delivery", label: "Delivery & COD" },
@@ -65,7 +61,7 @@ export function Header() {
               className="flex items-center gap-1.5 hover:text-[#55387D]"
             >
               <MapPin size={13} strokeWidth={2.2} className="text-[#55387D]" />
-              <span>D.N.C.C Market, Gulshan-2, Dhaka</span>
+              <span>G16 D.N.C.C Market, Gulshan-2, Dhaka-1212</span>
             </Link>
             <span className="text-gray-300">|</span>
             <Link
@@ -185,16 +181,79 @@ export function Header() {
         <div className="hidden border-t border-[#E5E7EB] md:block bg-[#FAFAFA]">
           <div className="container-page flex items-center justify-between py-2 text-xs font-extrabold text-[#374151]">
             {/* Category Dropdown Trigger */}
-            <Link
-              href="/shop"
-              className="flex items-center gap-1.5 px-3 py-1 bg-[#55387D] text-white uppercase tracking-wider text-[11px] hover:bg-[#432B64]"
-            >
-              <span>All Categories</span>
-              <ChevronDown size={13} strokeWidth={2.2} />
-            </Link>
+            <div className="group relative">
+              <button
+                type="button"
+                className="flex items-center gap-1.5 bg-[#55387D] px-3 py-1 text-[11px] uppercase tracking-wider text-white hover:bg-[#432B64]"
+                aria-haspopup="menu"
+              >
+                <span>All Categories</span>
+                <ChevronDown size={13} strokeWidth={2.2} />
+              </button>
+              <div className="invisible pointer-events-none absolute left-0 top-full z-50 w-[720px] border border-[#E5E7EB] bg-white p-4 opacity-0 shadow-xl group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100">
+                <div className="grid grid-cols-4 gap-4" role="menu">
+                  {petCategoryGroups.map((group) => (
+                    <div key={group.name} className="min-w-0">
+                      <Link
+                        href={group.href}
+                        className="flex items-center gap-2 border-b-2 border-[#55387D] pb-2 text-sm font-black uppercase text-[#111827] hover:text-[#55387D]"
+                      >
+                        <span className="text-lg" aria-hidden="true">{group.symbol}</span>
+                        <span>{group.name}</span>
+                      </Link>
+                      <div className="mt-2 grid gap-1">
+                        {group.children.map((child) => (
+                          <Link
+                            key={`${group.name}-${child.slug}`}
+                            href={`/category/${child.slug}`}
+                            className="px-2 py-2 text-[11px] font-bold uppercase leading-snug text-[#4B5563] hover:bg-[#F3EEF9] hover:text-[#55387D]"
+                            role="menuitem"
+                          >
+                            {child.name}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
 
             {/* Nav Links */}
             <nav className="flex items-center gap-1 lg:gap-2" aria-label="Main Navigation">
+              {petCategoryGroups.map((group) => {
+                const isActive = pathname.startsWith(group.href.replace(/\/[^/]+$/, "")) &&
+                  group.children.some((child) => pathname === `/category/${child.slug}`);
+                return (
+                  <div key={group.name} className="group relative">
+                    <Link
+                      href={group.href}
+                      aria-haspopup="menu"
+                      className={`flex items-center gap-1 px-3 py-1 uppercase tracking-wide text-[11px] ${
+                        isActive
+                          ? "bg-[#111827] text-white"
+                          : "text-[#374151] hover:bg-[#F3F4F6] hover:text-[#55387D]"
+                      }`}
+                    >
+                      <span>{group.name}</span>
+                      <ChevronDown size={11} strokeWidth={2} className={isActive ? "text-white" : "text-gray-400"} />
+                    </Link>
+                    <div className="invisible pointer-events-none absolute left-0 top-full z-50 w-64 border border-[#E5E7EB] bg-white py-2 opacity-0 shadow-xl group-hover:visible group-hover:pointer-events-auto group-hover:opacity-100 group-focus-within:visible group-focus-within:pointer-events-auto group-focus-within:opacity-100" role="menu">
+                      {group.children.map((child) => (
+                        <Link
+                          key={child.slug}
+                          href={`/category/${child.slug}`}
+                          className="flex items-center justify-between px-4 py-2.5 text-[11px] font-bold uppercase text-[#374151] hover:bg-[#F3EEF9] hover:text-[#55387D]"
+                          role="menuitem"
+                        >
+                          <span>{child.name}</span>
+                          <ChevronRight size={12} strokeWidth={2} />
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
               {mainNav.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -208,13 +267,6 @@ export function Header() {
                     }`}
                   >
                     <span>{item.label}</span>
-                    {item.hasSub && (
-                      <ChevronDown
-                        size={11}
-                        strokeWidth={2}
-                        className={isActive ? "text-white" : "text-gray-400"}
-                      />
-                    )}
                   </Link>
                 );
               })}
@@ -265,19 +317,32 @@ export function Header() {
                 ))}
                 <div className="pt-4">
                   <p className="text-[11px] font-black tracking-wider text-[#6B7280] uppercase mb-2.5 px-2">
-                    Browse All Categories
+                    Shop by Pet
                   </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    {categories.map((c) => (
-                      <Link
-                        key={c.slug}
-                        href={`/category/${c.slug}`}
-                        onClick={() => setMobileMenuOpen(false)}
-                        className="bg-[#F9FAFB] p-3 text-[11px] font-bold text-[#111827] flex items-center gap-2 border border-[#E5E7EB] hover:border-[#55387D] hover:bg-[#F3EEF9] transition-colors"
-                      >
-                        <span className="text-base">{c.symbol}</span>
-                        <span className="truncate uppercase">{c.name}</span>
-                      </Link>
+                  <div className="grid gap-2">
+                    {petCategoryGroups.map((group) => (
+                      <details key={group.name} className="group border border-[#E5E7EB] bg-[#F9FAFB]">
+                        <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-3 text-xs font-black uppercase text-[#111827] [&::-webkit-details-marker]:hidden">
+                          <span className="flex items-center gap-2">
+                            <span className="text-base" aria-hidden="true">{group.symbol}</span>
+                            <span>{group.name}</span>
+                          </span>
+                          <ChevronDown size={15} className="text-[#55387D] group-open:rotate-180" />
+                        </summary>
+                        <div className="border-t border-[#E5E7EB] bg-white px-2 py-1">
+                          {group.children.map((child) => (
+                            <Link
+                              key={`${group.name}-${child.slug}`}
+                              href={`/category/${child.slug}`}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="flex items-center justify-between border-b border-[#F3F4F6] px-3 py-2.5 text-[11px] font-bold uppercase text-[#4B5563] last:border-b-0 hover:text-[#55387D]"
+                            >
+                              <span>{child.name}</span>
+                              <ChevronRight size={13} />
+                            </Link>
+                          ))}
+                        </div>
+                      </details>
                     ))}
                   </div>
                 </div>

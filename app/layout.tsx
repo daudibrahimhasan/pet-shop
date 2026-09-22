@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     default: "DHALI's Unique Collection | Dog & Cat Food Shop in Gulshan-2, Dhaka",
     template: "%s | DHALI's Unique Collection"
   },
-  description: "DHALI's Unique Collection at D.N.C.C Market, Gulshan-2, Dhaka. Authentic imported cat & dog food, healthy treats, litter, and accessories with Cash on Delivery across Bangladesh.",
+  description: "DHALI's Unique Collection at G16 D.N.C.C Market, Gulshan-2, Dhaka. Authentic imported cat & dog food, healthy treats, litter, and accessories with Cash on Delivery across Bangladesh.",
   openGraph: {
     title: "DHALI's Unique Collection | Gulshan-2 Pet Shop",
     description: "Authentic dog & cat food, treats, and pet accessories delivered across Bangladesh.",

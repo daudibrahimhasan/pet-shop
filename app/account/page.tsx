@@ -45,7 +45,7 @@ export default function OrdersPage() {
           Recent Cash on Delivery Orders
         </h1>
         <p className="mt-1 text-xs text-[#6B7280]">
-          Track orders placed through your browser. For inquiries, address changes or quick confirmation, call <strong>01618-500629</strong>.
+          Track orders placed through your browser. For inquiries, address changes or quick confirmation, call <strong>01618500629</strong>.
         </p>
       </div>
 

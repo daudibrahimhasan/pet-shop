@@ -19,7 +19,7 @@ export function Footer() {
           </div>
           <div className="flex items-center gap-2 px-1">
             <Headphones size={16} strokeWidth={2.2} className="text-[#55387D] shrink-0" />
-            <a href="tel:+8801618500629" className="text-[11px] font-black uppercase text-[#111827] hover:text-[#55387D] truncate">Hotline: 01618-500629</a>
+            <a href="tel:+8801618500629" className="text-[11px] font-black uppercase text-[#111827] hover:text-[#55387D] truncate">Hotline: 01618500629</a>
           </div>
           <div className="flex items-center gap-2 px-1">
             <MapPin size={16} strokeWidth={2.2} className="text-[#55387D] shrink-0" />
@@ -47,7 +47,7 @@ export function Footer() {
                 DHALI&apos;S Unique Collection
               </span>
               <span className="block text-[10.5px] text-[#6B7280]">
-                G-1,2,3, D.N.C.C Market, Gulshan-2, Dhaka-1212 • <a href="tel:+8801618500629" className="font-bold text-[#55387D] hover:underline">01618-500629</a>
+                G16 D.N.C.C Market, Gulshan-2, Dhaka-1212 • <a href="tel:+8801618500629" className="font-bold text-[#55387D] hover:underline">01618500629</a>
               </span>
             </div>
           </div>
