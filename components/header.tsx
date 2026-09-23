@@ -256,8 +256,8 @@ export function Header() {
 
         {/* 4. MOBILE DRAWER (Sharp Edge Stacks) */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 flex flex-col justify-end bg-black/50 md:hidden animate-in fade-in duration-150">
-            <div className="relative max-h-[85vh] overflow-y-auto bg-white p-5 border-t-2 border-[#55387D] shadow-2xl">
+          <div className="fixed inset-x-0 top-0 bottom-15 z-50 flex flex-col justify-end bg-black/50 md:hidden animate-in fade-in duration-150">
+            <div className="relative max-h-[calc(100dvh-3.75rem)] overflow-y-auto bg-white p-5 border-t-2 border-[#55387D] shadow-2xl">
               <div className="flex items-center justify-between pb-3.5 border-b border-[#E5E7EB]">
                 <div className="flex items-center gap-2.5">
                   <div className="relative h-8 w-8 border border-[#E5E7EB] bg-white p-0.5">
