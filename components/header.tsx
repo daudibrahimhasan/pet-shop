@@ -8,6 +8,7 @@ import {
   ChevronRight,
   Facebook,
   Instagram,
+  LayoutGrid,
   Linkedin,
   MapPin,
   Menu,
@@ -18,7 +19,7 @@ import {
   X,
   Youtube,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useCart } from "@/components/cart-provider";
 import { formatPrice, petCategoryGroups } from "@/lib/data";
 import { assetPath } from "@/lib/assets";
@@ -30,6 +31,8 @@ export function Header() {
   const pathname = usePathname();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileMenuCloseRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -38,6 +41,21 @@ export function Header() {
     window.addEventListener("keydown", handleEscape);
     return () => window.removeEventListener("keydown", handleEscape);
   }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const focusFrame = window.requestAnimationFrame(() => mobileMenuCloseRef.current?.focus());
+
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.body.style.overflow = previousOverflow;
+      previousFocusRef.current?.focus();
+    };
+  }, [mobileMenuOpen]);
 
   if (pathname.startsWith("/admin")) return null;
 
@@ -92,7 +110,7 @@ export function Header() {
       </div>
 
       {/* 2. MAIN HEADER (CRISP SQUARE EDGES, CLEAN LINES) */}
-      <header className="sticky top-0 z-40 bg-white border-b border-[#E5E7EB] shadow-[0_1px_4px_rgba(0,0,0,0.04)]">
+      <header className={`sticky top-0 bg-white border-b border-[#E5E7EB] shadow-[0_1px_4px_rgba(0,0,0,0.04)] ${mobileMenuOpen ? "z-[60]" : "z-40"}`}>
         <div className="container-page py-2.5 sm:py-3">
           {/* Top Row: Logo, Long Search (Desktop), Actions */}
           <div className="flex items-center justify-between gap-3 sm:gap-6">
@@ -254,62 +272,98 @@ export function Header() {
           </div>
         </div>
 
-        {/* 4. MOBILE DRAWER (Sharp Edge Stacks) */}
+        {/* 4. MOBILE SIDEBAR */}
         {mobileMenuOpen && (
-          <div className="fixed inset-x-0 top-0 bottom-15 z-50 flex flex-col justify-end bg-black/50 md:hidden animate-in fade-in duration-150">
-            <div className="relative max-h-[calc(100dvh-3.75rem)] overflow-y-auto bg-white p-5 border-t-2 border-[#55387D] shadow-2xl">
-              <div className="flex items-center justify-between pb-3.5 border-b border-[#E5E7EB]">
-                <div className="flex items-center gap-2.5">
-                  <div className="relative h-8 w-8 border border-[#E5E7EB] bg-white p-0.5">
-                    <Image src={assetPath("/brand/dhali-logo.png")} alt="" fill className="object-contain" />
+          <div
+            className="fixed inset-0 z-50 bg-black/55 md:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <aside
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="mobile-menu-title"
+              className="flex h-full w-[min(390px,88vw)] flex-col bg-white shadow-2xl"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex min-h-19 items-center justify-between border-b border-[#E5E7EB] px-4">
+                <Link href="/" onClick={() => setMobileMenuOpen(false)} aria-label="DHALI's home">
+                  <div className="relative h-13 w-13 bg-white">
+                    <Image
+                      src={assetPath("/brand/dhali-logo.png")}
+                      alt="DHALI's Unique Collection"
+                      fill
+                      sizes="52px"
+                      className="object-contain"
+                    />
                   </div>
-                  <div>
-                    <span className="font-black text-[#111827] text-sm block uppercase">DHALI&apos;S</span>
-                    <span className="text-[10px] text-[#55387D] font-bold uppercase tracking-wider">Unique Collection</span>
-                  </div>
-                </div>
+                </Link>
                 <button
+                  ref={mobileMenuCloseRef}
                   type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="grid h-8 w-8 place-items-center bg-[#F3F4F6] text-[#111827]"
+                  className="grid h-11 w-11 place-items-center text-[#111827] hover:bg-[#F3F4F6] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#55387D]"
                   aria-label="Close menu"
                 >
-                  <X size={18} strokeWidth={2.2} />
+                  <X size={25} strokeWidth={2.1} />
                 </button>
               </div>
 
-              {/* Grouped Stack Links */}
-              <nav className="pt-3 text-xs font-bold" aria-label="Mobile Category Navigation">
-                <div>
-                  <div className="grid gap-2">
-                    {petCategoryGroups.map((group) => (
-                      <details key={group.name} className="group border border-[#E5E7EB] bg-[#F9FAFB]">
-                        <summary className="flex cursor-pointer list-none items-center justify-between px-3 py-3 text-xs font-black uppercase text-[#111827] [&::-webkit-details-marker]:hidden">
-                          <span className="flex items-center gap-2">
-                            <span className="text-base" aria-hidden="true">{group.symbol}</span>
-                            <span>{group.name}</span>
-                          </span>
-                          <ChevronDown size={15} className="text-[#55387D] group-open:rotate-180" />
-                        </summary>
-                        <div className="border-t border-[#E5E7EB] bg-white px-2 py-1">
-                          {group.children.map((child) => (
-                            <Link
-                              key={`${group.name}-${child.slug}`}
-                              href={`/category/${child.slug}`}
-                              onClick={() => setMobileMenuOpen(false)}
-                              className="flex items-center justify-between border-b border-[#F3F4F6] px-3 py-2.5 text-[11px] font-bold uppercase text-[#4B5563] last:border-b-0 hover:text-[#55387D]"
-                            >
-                              <span>{child.name}</span>
-                              <ChevronRight size={13} />
-                            </Link>
-                          ))}
-                        </div>
-                      </details>
-                    ))}
+              <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6 pt-3">
+                <h2 id="mobile-menu-title" className="flex items-center gap-2 border-b border-[#E5E7EB] pb-3 text-base font-black text-[#55387D]">
+                  <LayoutGrid size={20} strokeWidth={2} />
+                  <span>Browse Menu</span>
+                </h2>
+
+                <nav className="mt-3" aria-label="Mobile Category Navigation">
+                  {petCategoryGroups.map((group) => (
+                    <details key={group.name} className="group border-b border-[#E5E7EB]">
+                      <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between text-[15px] font-bold text-[#202124] hover:text-[#55387D] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#55387D] [&::-webkit-details-marker]:hidden">
+                        <span>{group.name}</span>
+                        <ChevronDown size={16} strokeWidth={2} className="text-[#4B5563] group-open:rotate-180" />
+                      </summary>
+                      <div className="border-t border-[#F0F1F3] bg-[#FAFAFA] py-1">
+                        {group.children.map((child) => (
+                          <Link
+                            key={`${group.name}-${child.slug}`}
+                            href={`/category/${child.slug}`}
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="flex min-h-11 items-center justify-between px-3 text-[13px] font-semibold text-[#4B5563] hover:bg-[#F3EEF9] hover:text-[#55387D] focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[#55387D]"
+                          >
+                            <span>{child.name}</span>
+                            <ChevronRight size={14} strokeWidth={2} />
+                          </Link>
+                        ))}
+                      </div>
+                    </details>
+                  ))}
+                </nav>
+
+                <div className="mt-8 grid gap-3 text-sm font-semibold text-[#55387D]">
+                  <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="hover:underline">
+                    Our location
+                  </Link>
+                  <Link href="/account" onClick={() => setMobileMenuOpen(false)} className="hover:underline">
+                    Track your order
+                  </Link>
+                  <a href="tel:+8801618500629" className="hover:underline">01618500629</a>
+                </div>
+
+                <div className="mt-8">
+                  <p className="text-sm font-semibold text-[#6B7280]">Follow Us</p>
+                  <div className="mt-3 flex items-center gap-2 text-[#6B7280]">
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="grid h-11 w-11 place-items-center hover:bg-[#F3EEF9] hover:text-[#55387D]" aria-label="Facebook">
+                      <Facebook size={19} strokeWidth={2} />
+                    </a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="grid h-11 w-11 place-items-center hover:bg-[#F3EEF9] hover:text-[#55387D]" aria-label="Instagram">
+                      <Instagram size={19} strokeWidth={2} />
+                    </a>
+                    <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="grid h-11 w-11 place-items-center hover:bg-[#F3EEF9] hover:text-[#55387D]" aria-label="YouTube">
+                      <Youtube size={20} strokeWidth={2} />
+                    </a>
                   </div>
                 </div>
-              </nav>
-            </div>
+              </div>
+            </aside>
           </div>
         )}
       </header>
