@@ -25,14 +25,6 @@ import { assetPath } from "@/lib/assets";
 import { MobileBottomNav } from "@/components/mobile-bottom-nav";
 import { HeaderSearch } from "@/components/header-search";
 
-const mainNav = [
-  { href: "/", label: "Home" },
-  { href: "/shop", label: "Privilege Club" },
-  { href: "/shop?q=Reflex", label: "Reflex" },
-  { href: "/about", label: "About Shop" },
-  { href: "/delivery", label: "Delivery & COD" },
-];
-
 export function Header() {
   const { count, subtotal } = useCart();
   const pathname = usePathname();
@@ -254,22 +246,6 @@ export function Header() {
                   </div>
                 );
               })}
-              {mainNav.map((item) => {
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    className={`flex items-center gap-1 px-3 py-1 uppercase tracking-wide text-[11px] transition-colors ${
-                      isActive
-                        ? "bg-[#111827] text-white"
-                        : "text-[#374151] hover:text-[#55387D] hover:bg-[#F3F4F6]"
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                  </Link>
-                );
-              })}
             </nav>
 
             <div className="text-[11px] font-bold text-[#6B7280] uppercase tracking-wider">
@@ -303,22 +279,8 @@ export function Header() {
               </div>
 
               {/* Grouped Stack Links */}
-              <nav className="divide-y divide-[#E5E7EB] text-xs font-bold pt-2" aria-label="Mobile Drawer Navigation">
-                {mainNav.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-between py-3 text-[#1F2937] hover:text-[#55387D] px-2 uppercase tracking-wide"
-                  >
-                    <span>{item.label}</span>
-                    <ChevronRight size={14} strokeWidth={2} className="text-gray-400" />
-                  </Link>
-                ))}
-                <div className="pt-4">
-                  <p className="text-[11px] font-black tracking-wider text-[#6B7280] uppercase mb-2.5 px-2">
-                    Shop by Pet
-                  </p>
+              <nav className="pt-3 text-xs font-bold" aria-label="Mobile Category Navigation">
+                <div>
                   <div className="grid gap-2">
                     {petCategoryGroups.map((group) => (
                       <details key={group.name} className="group border border-[#E5E7EB] bg-[#F9FAFB]">
